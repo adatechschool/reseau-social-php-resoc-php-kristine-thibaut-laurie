@@ -25,6 +25,7 @@ session_start();
                     <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
                     <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
                     <li><a href="registration.php?user_id=5">Inscription</a></li>
+                    <li><a href="login.php?user_id=5">Connexion</a></li>
                     <li><a href="ursurpedpost.php?user_id=5">Apropriation de posts</a></li>
                 </ul>
 

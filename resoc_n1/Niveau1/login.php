@@ -1,46 +1,7 @@
 <?php
 session_start();
 ?>
-<!doctype html>
-<html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>ReSoC - Connexion</title> 
-        <meta name="author" content="Julien Falconnet">
-        <link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
-        <header>
-            <img src="resoc.jpg" alt="Logo de notre réseau social"/>
-            <nav id="menu">
-                <a href="news.php">Actualités</a>
-                <a href="wall.php?user_id=5">Mur</a>
-                <a href="feed.php?user_id=5">Flux</a>
-                <a href="tags.php?tag_id=1">Mots-clés</a>
-            </nav>
-            <nav id="user">
-                <a href="#">Profil</a>
-                <ul>
-                    <li><a href="settings.php?user_id=5">Paramètres</a></li>
-                    <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
-                    <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
-                    <li><a href="registration.php?user_id=5">Inscription</a></li>
-                    <li><a href="ursurpedpost.php?user_id=5">Apropriation de posts</a></li>
-                </ul>
-
-            </nav>
-        </header>
-
-        <div id="wrapper" >
-
-            <aside>
-                <h2>Présentation</h2>
-                <p>Bienvenu sur notre réseau social.</p>
-            </aside>
-            <main>
-                <article>
-                    <h2>Connexion</h2>
-                    <?php
+<?php
                     /**
                      * TRAITEMENT DU FORMULAIRE
                      */
@@ -58,7 +19,6 @@ session_start();
                         $emailAVerifier = $_POST['email'];
                         $passwdAVerifier = $_POST['motpasse'];
 
-
                         //Etape 3 : Ouvrir une connexion avec la base de donnée.
                         $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
                         //Etape 4 : Petite sécurité
@@ -69,10 +29,11 @@ session_start();
                         $passwdAVerifier = md5($passwdAVerifier);
                         // NB: md5 est pédagogique mais n'est pas recommandée pour une vraies sécurité
                         //Etape 5 : construction de la requete
-                        $lInstructionSql = "SELECT * 
+                        $lInstructionSql = "SELECT *
                                  FROM users 
                                  WHERE 
                                  email = '" . $emailAVerifier . "'"
+                                 
                                 ;
                         // Etape 6: Vérification de l'utilisateur
                         $res = $mysqli->query($lInstructionSql);
@@ -87,9 +48,53 @@ session_start();
                             // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
                             // documentation: https://www.php.net/manual/fr/session.examples.basic.php
                             $_SESSION['connected_id']=$user['id'];
+                            
+                        
                         }
                     }
-                    ?>                     
+                    ?>                   
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>ReSoC - Connexion</title> 
+        <meta name="author" content="Julien Falconnet">
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <header>
+            <img src="resoc.jpg" alt="Logo de notre réseau social"/>
+            <nav id="menu">
+                <a href="news.php">Actualités</a>
+                <a href="wall.php?user_id=<?php echo $user['id']?>">Mur</a>
+                <a href="feed.php?user_id=<?php echo $user['id']?>">Flux</a>
+                <a href="tags.php?tag_id=">Mots-clés</a>
+            </nav>
+            <nav id="user">
+                <a href="#">Profil</a>
+                <ul>
+                    <li><a href="settings.php?user_id=<?php echo $user['id']?>">Paramètres</a></li>
+                    <li><a href="followers.php?user_id=<?php echo $user['id']?>">Mes suiveurs</a></li>
+                    <li><a href="subscriptions.php?user_id=<?php echo $user['id']?>">Mes abonnements</a></li>
+                    <li><a href="registration.php?user_id=<?php echo $user['id']?>">Inscription</a></li>
+                    <li><a href="login.php?user_id=<?php echo $user['id']?>">Connexion</a></li>
+                    <li><a href="ursurpedpost.php?user_id=<?php echo $user['id']?>">Apropriation de posts</a></li>
+                    
+                </ul>
+
+            </nav>
+        </header>
+
+        <div id="wrapper" >
+
+            <aside>
+                <h2>Présentation</h2>
+                <p>Bienvenu sur notre réseau social.</p>
+            </aside>
+            <main>
+                <article>
+                    <h2>Connexion</h2>
+                      
                     <form action="login.php" method="post">
                         <input type='hidden'name='???' value='achanger'>
                         <dl>
