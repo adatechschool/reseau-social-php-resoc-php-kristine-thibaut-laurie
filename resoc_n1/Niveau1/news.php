@@ -23,6 +23,7 @@
                 <li><a href="settings.php?user_id=5">Paramètres</a></li>
                 <li><a href="followers.php?user_id=5">Mes suiveurs</a></li>
                 <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
+                <li><a href="registration.php?user_id=5">Inscription</a></li>
             </ul>
         </nav>
     </header>
@@ -89,7 +90,7 @@
             // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html
             // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
             while ($post = $lesInformations->fetch_assoc()) {
-                echo "<pre>" . print_r($post, 1) . "</pre>";
+                //echo "<pre>" . print_r($post, 1) . "</pre>";
                 //la ligne ci-dessous doit etre supprimée mais regardez ce 
                 //qu'elle affiche avant pour comprendre comment sont organisées les information dans votre 
                 //echo "<pre>" . print_r($post, 1) . "</pre>";
