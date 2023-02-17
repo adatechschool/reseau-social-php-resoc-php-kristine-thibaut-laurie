@@ -1,26 +1,7 @@
-<!doctype html>
-<html lang="fr">
-
-<head>
-    <meta charset="utf-8">
-    <title>ReSoC - Connexion</title>
-    <meta name="author" content="Julien Falconnet">
-    <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-    <?php include './header.php'; ?>
-
-    <div id="wrapper">
-
-        <aside>
-            <h2>Présentation</h2>
-            <p>Bienvenu sur notre réseau social.</p>
-        </aside>
-        <main>
-            <article>
-                <h2>Connexion</h2>
-                <?php
+<?php
+    session_start();
+?>
+<?php
                 /**
                  * TRAITEMENT DU FORMULAIRE
                  */
@@ -63,10 +44,35 @@
                         // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
                         // documentation: https://www.php.net/manual/fr/session.examples.basic.php
                         $_SESSION['connected_id'] = $user['id'];
+                        header("Location: wall.php?user_id=" . $_SESSION['connected_id']);
                     }
                 }
                 ?>
-                <form action="login.php" method="post">
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>ReSoC - Connexion</title>
+    <meta name="author" content="Julien Falconnet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <?php include './header.php'; ?>
+
+    <div id="wrapper">
+
+        <aside>
+            <h2>Présentation</h2>
+            <p>Bienvenu sur notre réseau social.</p>
+        </aside>
+        <main>
+            <article>
+                <h2>Connexion</h2>
+                <?php echo $_SESSION['connected_id']; ?>
+
+                <form action="" method="post">
                     <input type='hidden' name='???' value='achanger'>
                     <dl>
                         <dt><label for='email'>E-Mail</label></dt>

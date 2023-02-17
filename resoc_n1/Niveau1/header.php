@@ -1,12 +1,10 @@
-<?php
-session_start();
-?>
-
 <header>
     <img src="resoc.jpg" alt="Logo de notre réseau social" />
     <nav id="menu">
+        
+    <?php if (isset($_SESSION['connected_id'])) { ?>
         <a href="news.php">Actualités</a>
-        <a href="wall.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Mur</a>
+        <a href="wall.php?user_id=<?php echo $_SESSION['connected_id'] ?>" >Mur</a>
         <a href="feed.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Flux</a>
         <a href="tags.php?tag_id=1">Mots-clés</a>
     </nav>
@@ -20,6 +18,10 @@ session_start();
             <li><a href="login.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Connexion</a></li>
             <li><a href="usurpedpost.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Apropriation de posts</a></li>
         </ul>
-
+        <?php } else { ?>
+        <a href="login.php">Connexion</a>
+    <?php
+    } ?>
     </nav>
+
 </header>
