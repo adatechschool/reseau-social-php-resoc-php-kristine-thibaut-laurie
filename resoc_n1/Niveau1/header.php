@@ -16,6 +16,7 @@
             <li><a href="subscriptions.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Mes abonnements</a></li>
             <li><a href="registration.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Inscription</a></li>
             <li><a href="login.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Connexion</a></li>
+            <li><a href="logout.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Deconnexion</a></li>
             <li><a href="usurpedpost.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Apropriation de posts</a></li>
         </ul>
         <?php } else { ?>
