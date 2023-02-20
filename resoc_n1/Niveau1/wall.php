@@ -141,7 +141,10 @@ session_start();
                                     $fetched_data_followers = $get_data_followers -> fetch_assoc();
                                     //echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
 
-                                    if (!$fetched_data_followers) { ?>
+
+                                    if ($userId == $session_actuelle) {
+                                        
+                                    } else if (!$fetched_data_followers) { ?>
 
                                         <form action ="" method="post">
                                         <input name="followers" type='submit' value="S'abonner">
