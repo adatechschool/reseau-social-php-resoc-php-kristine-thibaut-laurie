@@ -133,25 +133,34 @@ session_start();
                         </form>
                     </article>
                     <article>
+                        <!-- btn pour follow -->
                         <form action ="" method="post">
-                                <input name="followers" type='submit' value="s'abonner">
+                                <input name="followers" id='btn_follower' type='submit' value="s'abonner">
                         </form>
                             <?php
                                 $check_follow = isset($_POST["followers"]);
                                 if ($check_follow ) {
+                                    $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
+                                    $get_data_followers = $mysqli->query($select_data_followers);
+                                    $fetched_data_followers = $get_data_followers -> fetch_assoc();
+                                    echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
+                                    if ( $fetched_data_followers) {
 
-                                    $followed_user_id = $userId ;
-                                    //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                                    $sql_followers = "INSERT INTO followers "
-                                . "(id, followed_user_id, following_user_id) "
-                                . "VALUES (NULL, "
-                                . $followed_user_id . ", "
-                                . $session_actuelle . "); ";
-                                    $insert_followers = $mysqli->query($sql_followers);
-                                    if (!$insert_followers) {
-                                        echo "Impossible d'ajouter le follower: " . $mysqli->error;
+                                        echo " vous êtes déjà abonné";
                                     } else {
-                                        echo "Vous êtes abonné:";
+                                        $followed_user_id = $userId ;
+                                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                                        $sql_followers = "INSERT INTO followers "
+                                    . "(id, followed_user_id, following_user_id) "
+                                    . "VALUES (NULL, "
+                                    . $followed_user_id . ", "
+                                    . $session_actuelle . "); ";
+                                        $insert_followers = $mysqli->query($sql_followers);
+                                        if (!$insert_followers) {
+                                            echo "Impossible d'ajouter le follower: " . $mysqli->error;
+                                        } else {
+                                            echo "Vous êtes abonné:";
+                                        }
                                     }
                                 }
 
