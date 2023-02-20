@@ -23,6 +23,7 @@ session_start();
          * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
          * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
          */
+        
         $userId = intval($_GET['user_id']);
         ?>
         <?php
@@ -127,8 +128,36 @@ session_start();
                                 <dt><label for='message'>Message</label></dt>
                                 <dd><textarea name='message'></textarea></dd>
                             </dl>
-                            <input type='submit'>
+                            <input type='submit'><br> <br>
+                            
                         </form>
+                    </article>
+                    <article>
+                        <form action ="" method="post">
+                                <input name="followers" type='submit' value="s'abonner">
+                        </form>
+                            <?php
+                                $check_follow = isset($_POST["followers"]);
+                                if ($check_follow ) {
+
+                                    $followed_user_id = $userId ;
+                                    //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                                    $sql_followers = "INSERT INTO followers "
+                                . "(id, followed_user_id, following_user_id) "
+                                . "VALUES (NULL, "
+                                . $followed_user_id . ", "
+                                . $session_actuelle . "); ";
+                                    $insert_followers = $mysqli->query($sql_followers);
+                                    if (!$insert_followers) {
+                                        echo "Impossible d'ajouter le follower: " . $mysqli->error;
+                                    } else {
+                                        echo "Vous êtes abonné:";
+                                    }
+                                }
+
+
+                            ?>
+
                     </article>
             </section>
         </aside>
