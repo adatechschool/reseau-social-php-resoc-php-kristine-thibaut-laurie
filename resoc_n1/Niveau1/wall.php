@@ -199,6 +199,28 @@ session_start();
             </section>
         </aside>
         <main>
+             <?php 
+                $check_likes= isset($_POST["likes"]);
+                    if ($check_likes ) {
+                        //$post_Id =$post['id'] ;
+                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                        $sql_likes = "INSERT INTO likes "
+                    . "(id, user_id, post_id) "
+                    . "VALUES (NULL, "
+                    . $session_actuelle . ", "
+                    .  $_POST["postId"]. "); ";
+                    echo $sql_likes;                                    
+                        $insert_likes = $mysqli->query($sql_likes);
+                
+                        if (!$insert_likes) {
+                            echo "Impossible d'ajouter un like: " . $mysqli->error;
+                        } else {
+                            echo "Vous avez ajoutez un like";
+                            header('Refresh:0');
+                        } 
+                    }
+            
+            ?> 
             <?php
             /**
              * Etape 3: récupérer tous les messages de l'utilisatrice
@@ -225,7 +247,7 @@ session_start();
              */
             while ($post = $lesInformations->fetch_assoc()) {
 
-                //echo "<pre>" . print_r($post, 1) . "</pre>";
+                echo "<pre>" . print_r($post, 1) . "</pre>";
             ?>
                 <article>
                     <h3>
@@ -235,64 +257,30 @@ session_start();
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>
+            
                     <footer >         
 
                         <small>
+                            <?php 
+                            $post_Id =$post['id'];
+                            $checkLike = "SELECT * FROM likes WHERE user_id= '" . $session_actuelle . "' AND post_id= '" . $post['id'] . "' ";
+                            $ok = $mysqli->query($checkLike);
+                            if ($ok->num_rows == 0) {
+                                ?>
                                 <form action ="" method="post">
                                     <input name="likes" type='submit' value="♥ <?php echo $post['like_number'] ?>">
                                     <input name="postId" type='hidden' value=" <?php echo $post['id'] ?>">
                                 </form> 
-                                <?php echo $post['id'] ?>
-                                <?php echo $post['like_number'] ?>
-                            <?php
-
-                                $check_likes= isset($_POST["likes"]);
-                                    if ($check_likes ) {
-                                        $post_Id =$post['id'] ;
-                                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                                        $sql_likes = "INSERT INTO likes "
-                                    . "(id, user_id, post_id) "
-                                    . "VALUES (NULL, "
-                                    . $session_actuelle . ", "
-                                    . $post_Id . "); ";
-                                    echo $sql_likes;                                    
-                                        $insert_likes = $mysqli->query($sql_likes);
-                        
-                                        if (!$insert_likes) {
-                                            echo "Impossible d'ajouter un like: " . $mysqli->error;
-                                        } else {
-                                            echo "Vous avez ajoutez un like";
-                                            header('Refresh:0');
-                                        } 
-                                    }
-                            ?>
-
-                                    
-                                    <!-- }
-                                    } else if ($fetched_data_followers) { ?>
-                                     -->
-
-                                    <?php /* } 
-                                        $check_for_delete = isset($_POST["delete"]);
-                                        if ($check_for_delete ) {
-                                            $followed_user_id = $userId ;
-                                            //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                                            $sql_followers_delete = " DELETE FROM followers WHERE followed_user_id = '$followed_user_id' AND following_user_id = '$session_actuelle'";
-                                
-                                            $delete_followers = $mysqli->query($sql_followers_delete);
-                                                if (!$delete_followers) {
-                                                    echo "Impossible de se désabonner du follower: " . $mysqli->error;
-                                                } else {
-                                                    echo "Vous êtes désabonné:";
-                                                    header('Refresh:0');
-                                                } 
-                                        }
-                                     */?>
+                                <?php
+                            } else {
+                                echo 'liked';
+                            } ?>
                         </small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
-            <?php } ?>
+                <?php } ?> 
+           
 
 
         </main>
