@@ -70,8 +70,6 @@
         <main>
             <article>
                 <h2>Connexion</h2>
-                <?php echo $_SESSION['connected_id']; ?>
-
                 <form action="" method="post">
                     <input type='hidden' name='???' value='achanger'>
                     <dl>

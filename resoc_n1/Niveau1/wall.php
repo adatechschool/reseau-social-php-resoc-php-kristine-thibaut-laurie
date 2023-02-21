@@ -204,7 +204,7 @@ session_start();
              * Etape 3: récupérer tous les messages de l'utilisatrice
              */
             $laQuestionEnSql = "
-                    SELECT posts.user_id, posts.content, posts.created, users.alias as author_name, 
+                    SELECT posts.user_id, posts.content, posts.created, users.alias as author_name, posts.id,                    
                     COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
@@ -235,8 +235,60 @@ session_start();
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>
-                    <footer>
-                        <small>♥ <?php echo $post['like_number'] ?></small>
+                    <footer >         
+
+                        <small>
+                                <form action ="" method="post">
+                                    <input name="likes" type='submit' value="♥ <?php echo $post['like_number'] ?>">
+                                    <input name="postId" type='hidden' value=" <?php echo $post['id'] ?>">
+                                </form> 
+                                <?php echo $post['id'] ?>
+                                <?php echo $post['like_number'] ?>
+                            <?php
+
+                                $check_likes= isset($_POST["likes"]);
+                                    if ($check_likes ) {
+                                        $post_Id =$post['id'] ;
+                                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                                        $sql_likes = "INSERT INTO likes "
+                                    . "(id, user_id, post_id) "
+                                    . "VALUES (NULL, "
+                                    . $session_actuelle . ", "
+                                    . $post_Id . "); ";
+                                    echo $sql_likes;                                    
+                                        $insert_likes = $mysqli->query($sql_likes);
+                        
+                                        if (!$insert_likes) {
+                                            echo "Impossible d'ajouter un like: " . $mysqli->error;
+                                        } else {
+                                            echo "Vous avez ajoutez un like";
+                                            header('Refresh:0');
+                                        } 
+                                    }
+                            ?>
+
+                                    
+                                    <!-- }
+                                    } else if ($fetched_data_followers) { ?>
+                                     -->
+
+                                    <?php /* } 
+                                        $check_for_delete = isset($_POST["delete"]);
+                                        if ($check_for_delete ) {
+                                            $followed_user_id = $userId ;
+                                            //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                                            $sql_followers_delete = " DELETE FROM followers WHERE followed_user_id = '$followed_user_id' AND following_user_id = '$session_actuelle'";
+                                
+                                            $delete_followers = $mysqli->query($sql_followers_delete);
+                                                if (!$delete_followers) {
+                                                    echo "Impossible de se désabonner du follower: " . $mysqli->error;
+                                                } else {
+                                                    echo "Vous êtes désabonné:";
+                                                    header('Refresh:0');
+                                                } 
+                                        }
+                                     */?>
+                        </small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>

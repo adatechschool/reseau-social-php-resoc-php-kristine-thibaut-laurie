@@ -85,8 +85,7 @@ session_start();
                             | <a href="feed.php?user_id=<?php echo $tag['id'] ?>">Flux</a>
                             | <a href="settings.php?user_id=<?php echo $tag['id'] ?>">Paramètres</a>
                             | <a href="followers.php?user_id=<?php echo $tag['id'] ?>">Suiveurs</a>
-                            | <a href="subscriptions.php?user_id=<?php echo $tag['id'] ?>">Abonnements</a>
-                        </nav>
+                            | <a href="subscriptions.php?user_id=<?php echo $tag['id'] ?>">Abonnements</a>                        </nav>
                     </article>
                 <?php } ?>
             </main>
