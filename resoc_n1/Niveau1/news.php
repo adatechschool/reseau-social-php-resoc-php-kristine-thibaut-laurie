@@ -15,10 +15,12 @@ session_start();
 <?php include './header.php'; ?>
     <div id="wrapper">
         <aside>
+            <div id="world">
             <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
+            </div>
             <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez les derniers messages de
+                <h3 id="presentation">Présentation</h3>
+                <p id="description">Sur cette page vous trouverez les derniers messages de
                     tous les utilisatrices du site.</p>
             </section>
         </aside>

@@ -1,18 +1,20 @@
 body{
     background-color: black;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Frank Ruhl Libre', serif;
 }
 
 a{text-decoration: none; color:black;}
-a:hover{text-decoration: underline;}
+/*a:hover{text-decoration: underline;}*/
 
 body>header{
-    background-color: #434242;
+    background-color: #000000;
     display:flex;
     width:80em;
     margin:0 auto 2em auto;    
     padding:0;
     border-radius: 1rem;
+    font-family: 'Domine', serif;
+    font-size: large;
 }
 body>header img{
     height:5em;
@@ -26,10 +28,12 @@ body>header #menu a{
     text-align: center;
     padding-top:2em;
     border-radius: 5rem;
+    color:#fff;
 }
 body>header a:hover
 {
-    background-color: #99b;
+    background-color: #f3dd73;
+    border-radius: 2em;
 }
 body>header ul{list-style: none;}
 body>header #user
@@ -43,6 +47,7 @@ body>header #user>a{
     padding:2em 0;
     width:100%;
     border-radius: 5rem;
+    color:#fff;
 }
 body>header #user ul{ 
     display: none;
@@ -50,8 +55,8 @@ body>header #user ul{
     padding:0;
     margin:0;
     margin-left:-5em;
-    background-color: #fff;
-    border: 1px solid #99b;
+    background-color: #000000;
+    border-radius: 2em;
 
     z-index: 1;
 }
@@ -59,7 +64,7 @@ body>header #user ul li a{
     display:block;
     width:10em;
     padding:1em;
-    border-bottom: 1px solid #99b;
+    color:#fff;
 }
 body>header #user:hover ul{
     display:block;
@@ -89,7 +94,7 @@ body>header #user:hover ul{
     flex:3;
     padding-left:1em;
     height: 80vh;
-    overflow-y:  scroll;
+   
 }
 #wrapper main article{
     background-color: #FFFBEB;
@@ -175,3 +180,20 @@ a {
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
 form dl dd{margin-left:10em;line-height: 1.5em;margin-bottom: 1em}
 form dl dd textarea{width:40em;height: 15em;}
+
+
+/* news.php */
+
+#presentation {
+    margin-top: 5em;
+    text-align: center;
+}
+
+#world {
+    margin-top: 3em;
+}
+
+#description {
+    text-align: center;
+    margin-top: 3em;
+}
