@@ -48,8 +48,7 @@ session_start();
             <?php
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
-
-                <article>
+                <article> 
                     <img src="user.jpg" alt="blason" />
                     <h3><a href="wall.php?user_id=<?php echo $user['id'] ?>"><?php echo $user['alias'] ?></a> </h3>
                     <p> <?php echo $user['id'] ?> </p>

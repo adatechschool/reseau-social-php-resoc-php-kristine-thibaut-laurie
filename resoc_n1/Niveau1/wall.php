@@ -47,7 +47,7 @@ session_start();
             //echo "<pre>" . print_r($user, 1) . "</pre>";
             ?>
 
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <img src="<?php echo $user['photo'];?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias'] ?>
@@ -91,6 +91,7 @@ session_start();
                             // et complétez le code ci dessous en remplaçant les ???
                             $authorId = $_POST['auteur'];
                             $postContent = $_POST['message'];
+                            $postedPhoto = $_POST['postedPhoto'];
 
 
                             //Etape 3 : Petite sécurité
@@ -99,7 +100,7 @@ session_start();
                             $postContent = $mysqli->real_escape_string($postContent);
                             //Etape 4 : construction de la requete
                             $lInstructionSql = "INSERT INTO posts "
-                                . "(id, user_id, content, created, parent_id) "
+                                . "(id, user_id, content, created, parent_id, photo_upload) "
                                 . "VALUES (NULL, "
                                 . $authorId . ", "
                                 . "'" . $postContent . "', "
@@ -127,6 +128,8 @@ session_start();
                                     </select></dd>
                                 <dt><label for='message'>Message</label></dt>
                                 <dd><textarea name='message'></textarea></dd>
+                                <dt><label for='postedPhoto'>photo</label></dt>
+                                <dd><textarea name='postedPhoto'></textarea></dd>
                             </dl>
                             <input type='submit'><br> <br>
                             
@@ -226,7 +229,7 @@ session_start();
              */
             while ($post = $lesInformations->fetch_assoc()) {
 
-                echo "<pre>" . print_r($post, 1) . "</pre>";
+                //echo "<pre>" . print_r($post, 1) . "</pre>";
             ?>
                 <article>
                     <h3>

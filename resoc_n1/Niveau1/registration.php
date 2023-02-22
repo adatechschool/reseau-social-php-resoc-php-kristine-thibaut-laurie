@@ -40,6 +40,8 @@ session_start();
                         $new_email = $_POST['email'];
                         $new_alias = $_POST['pseudo'];
                         $new_passwd = $_POST['motpasse'];
+                        $new_photo = $_POST['photo']; 
+
 
 
                         //Etape 3 : Ouvrir une connexion avec la base de donnée.
@@ -53,11 +55,12 @@ session_start();
                         $new_passwd = md5($new_passwd);
                         // NB: md5 est pédagogique mais n'est pas recommandée pour une vraies sécurité
                         //Etape 5 : construction de la requete
-                        $lInstructionSql = "INSERT INTO users (id, email, password, alias) "
+                        $lInstructionSql = "INSERT INTO users (id, email, password, alias, photo) "
                                 . "VALUES (NULL, "
                                 . "'" . $new_email . "', "
                                 . "'" . $new_passwd . "', "
-                                . "'" . $new_alias . "'"
+                                . "'" . $new_alias . "', "
+                                . "'" . $new_photo . "'"
                                 . ");";
                         // Etape 6: exécution de la requete
                         $ok = $mysqli->query($lInstructionSql);
@@ -73,6 +76,12 @@ session_start();
                     ?>                     
                     <form action="registration.php" method="post">
                         <input type='hidden'name='???' value='achanger'>
+                        <label for="photo">Choose a photo:</label>
+                        <select name="photo" id="photo">
+                            <option value="./photo/boatSunset.jpg">Boat</option>
+                            <option value="./photo/mountainClimber.jpg">Mountain Climber</option>
+                            <option value="./photo/passeport.jpg">Passeport</option>
+                        </select>
                         <dl>
                             <dt><label for='pseudo'>Pseudo</label></dt>
                             <dd><input type='text'name='pseudo'></dd>
