@@ -1,5 +1,5 @@
 <header>
-    <img src="resoc.jpg" alt="Logo de notre réseau social" />
+    <img src="photo/vagabondLogo.png" alt="Logo de notre réseau social" class="logo"/>
     <nav id="menu">
         
     <?php if (isset($_SESSION['connected_id'])) { ?>

@@ -1,5 +1,5 @@
 body{
-    background-color: lightblue;
+    background-color: black;
     font-family: Arial;
 }
 
@@ -7,12 +7,12 @@ a{text-decoration: none; color:black;}
 a:hover{text-decoration: underline;}
 
 body>header{
-    background-color: #fff;
+    background-color: #434242;
     display:flex;
     width:80em;
     margin:0 auto 2em auto;    
     padding:0;
-
+    border-radius: 1rem;
 }
 body>header img{
     height:5em;
@@ -20,14 +20,12 @@ body>header img{
 body>header #menu {
     display:flex;
     width:50%;
-    align-items: stretch;
-    border-left: 1px solid #99b;
-}
+    align-items: stretch;}
 body>header #menu a{
     flex:1;
     text-align: center;
     padding-top:2em;
-    border-right: 1px solid #99b;
+    border-radius: 5rem;
 }
 body>header a:hover
 {
@@ -38,13 +36,13 @@ body>header #user
 {
     margin-left: auto;
     flex:0.2;
-    border-left: 1px solid #99b;
 }
 body>header #user>a{
     display:block;
     text-align: center;
     padding:2em 0;
     width:100%;
+    border-radius: 5rem;
 }
 body>header #user ul{ 
     display: none;
@@ -163,6 +161,13 @@ pre{
 .newsPhoto {
     height: 20rem;
     width: 10 rem;
+}
+.logo {
+    border-radius: 50%;
+}
+a {
+    color: #f3dd73;
+
 }
 
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
