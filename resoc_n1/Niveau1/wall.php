@@ -54,7 +54,6 @@ session_start();
             <section>
                 <main>
                     <article>
-                        <h2>Poster un message</h2>
                         <?php
                         /**
                          * BD
@@ -115,11 +114,10 @@ session_start();
                             }
                         }
                         ?>
-                        <form action="" method="post">
-                            <input type='hidden' name='???' value='achanger'>
+                        <form action="" method="post" class="messageBox">
                             <dl>
-                                <dt><label for='auteur'>Auteur</label></dt>
-                                <dd><select name='auteur'>
+                                <dt display="hidden"><label for='auteur'>Auteur</label></dt>
+                                <dd display="hidden"><select name='auteur'>
                                         <?php
                                         foreach ($listAuteurs as $id => $alias)
                                             echo "<option value='$id'>$alias</option>";
@@ -133,9 +131,6 @@ session_start();
                             <input type='submit' class="btn"><br> <br>
                             
                         </form>
-                    </article>
-                    <article>
-                        
                             <?php
                             // followers 
                                 
