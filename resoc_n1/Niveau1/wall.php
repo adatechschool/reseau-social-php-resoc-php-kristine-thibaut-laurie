@@ -48,12 +48,10 @@ session_start();
             ?>
 
             <img src="<?php echo $user['photo'];?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
+            <div class="welcomeMessage">
+                <h2>Binvenue <?php echo $user['alias'] ?></h2>
+            </div>
             <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez tous les message de l'utilisatrice : <?php echo $user['alias'] ?>
-
-                    (n° <?php echo $userId ?>)
-                </p>
                 <main>
                     <article>
                         <h2>Poster un message</h2>
@@ -132,7 +130,7 @@ session_start();
                                 <dt><label for='postedPhoto'>photo</label></dt>
                                 <dd><textarea name='postedPhoto'></textarea></dd>
                             </dl>
-                            <input type='submit'><br> <br>
+                            <input type='submit' class="btn"><br> <br>
                             
                         </form>
                     </article>
