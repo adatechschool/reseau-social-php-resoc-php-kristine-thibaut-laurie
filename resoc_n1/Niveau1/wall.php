@@ -114,7 +114,7 @@ session_start();
                             }
                         }
                         ?>
-                        <form action="" method="post" class="messageBox">
+                        <form action="" method="post" class="messageBox" id="messageBox">
                             <dl>
                                 <dt display="hidden"><label for='auteur'>Auteur</label></dt>
                                 <dd display="hidden"><select name='auteur'>
@@ -128,8 +128,7 @@ session_start();
                                 <dt><label for='postedPhoto'>photo</label></dt>
                                 <dd><textarea name='postedPhoto'></textarea></dd>
                             </dl>
-                            <input type='submit' class="btn"><br> <br>
-                            
+                                <input type='submit' class="btn"><br> <br>
                         </form>
                             <?php
                             // followers 
