@@ -219,6 +219,22 @@ session_start();
                             header('Refresh:0');
                         } 
                     }
+                $check_dislike= isset($_POST["dislike"]);
+                    if ($check_dislike ) {
+                        $post_Id = $_POST['postIdD'];
+                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                        $sql_dislike = "DELETE FROM likes WHERE user_id = $session_actuelle AND post_id = $post_Id";
+                        echo $sql_dislike;                                    
+                        $insert_dislike = $mysqli->query($sql_dislike);
+                        if (!$insert_dislike) {
+                            echo "Impossible to dislike: " . $mysqli->error;
+                        } else {
+                            echo "Vous avez ajoutez un dislike";
+                            header('Refresh:0');
+                        } 
+                    }
+
+
             
             ?> 
             <?php
@@ -265,16 +281,19 @@ session_start();
                             $post_Id =$post['id'];
                             $checkLike = "SELECT * FROM likes WHERE user_id= '" . $session_actuelle . "' AND post_id= '" . $post['id'] . "' ";
                             $ok = $mysqli->query($checkLike);
-                            if ($ok->num_rows == 0) {
+                            if ($ok -> num_rows == 0) {
                                 ?>
                                 <form action ="" method="post">
                                     <input name="likes" type='submit' value="♥ <?php echo $post['like_number'] ?>">
                                     <input name="postId" type='hidden' value=" <?php echo $post['id'] ?>">
                                 </form> 
                                 <?php
-                            } else {
-                                echo 'liked';
-                            } ?>
+                            } else { ?>
+                                <form action ="" method="post">
+                                    <input name="dislike" type='submit' value="♥ <?php echo $post['like_number'] ?>">
+                                    <input name="postIdD" type='hidden' value=" <?php echo $post['id'] ?>">
+                                </form> 
+                            <?php } ?>
                         </small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
