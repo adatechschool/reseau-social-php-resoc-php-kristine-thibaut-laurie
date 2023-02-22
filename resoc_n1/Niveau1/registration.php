@@ -14,11 +14,6 @@ session_start();
     <?php include './header.php'; ?>
 
         <div id="wrapper" >
-
-            <aside>
-                <h2>Présentation</h2>
-                <p>Bienvenu sur notre réseau social.</p>
-            </aside>
             <main>
                 <article>
                     <h2>Inscription</h2>
