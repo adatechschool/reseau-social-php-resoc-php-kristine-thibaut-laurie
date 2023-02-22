@@ -135,6 +135,7 @@ session_start();
                     <article>
                         
                             <?php
+                            // followers 
                                 
                                     $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
                                     $get_data_followers = $mysqli->query($select_data_followers);
@@ -199,65 +200,27 @@ session_start();
             </section>
         </aside>
         <main>
-             <?php 
-                $check_likes= isset($_POST["likes"]);
-                    if ($check_likes ) {
-                        //$post_Id =$post['id'] ;
-                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                        $sql_likes = "INSERT INTO likes "
-                    . "(id, user_id, post_id) "
-                    . "VALUES (NULL, "
-                    . $session_actuelle . ", "
-                    .  $_POST["postId"]. "); ";
-                    echo $sql_likes;                                    
-                        $insert_likes = $mysqli->query($sql_likes);
-                
-                        if (!$insert_likes) {
-                            echo "Impossible d'ajouter un like: " . $mysqli->error;
-                        } else {
-                            echo "Vous avez ajoutez un like";
-                            header('Refresh:0');
-                        } 
-                    }
-                $check_dislike= isset($_POST["dislike"]);
-                    if ($check_dislike ) {
-                        $post_Id = $_POST['postIdD'];
-                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                        $sql_dislike = "DELETE FROM likes WHERE user_id = $session_actuelle AND post_id = $post_Id";
-                        echo $sql_dislike;                                    
-                        $insert_dislike = $mysqli->query($sql_dislike);
-                        if (!$insert_dislike) {
-                            echo "Impossible to dislike: " . $mysqli->error;
-                        } else {
-                            echo "Vous avez ajoutez un dislike";
-                            header('Refresh:0');
-                        } 
-                    }
-
-
-            
-            ?> 
-            <?php
-            /**
+             <?php
+             include './likesConnection.php';
+             /**
              * Etape 3: récupérer tous les messages de l'utilisatrice
-             */
+             */ 
             $laQuestionEnSql = "
-                    SELECT posts.user_id, posts.content, posts.created, users.alias as author_name, posts.id,                    
-                    COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-                    FROM posts
-                    JOIN users ON  users.id=posts.user_id
-                    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
-                    LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
-                    LEFT JOIN likes      ON likes.post_id  = posts.id 
-                    WHERE posts.user_id='$userId' 
-                    GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    ";
+            SELECT posts.user_id, posts.content, posts.created, users.alias as author_name, posts.id,                    
+            COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+            FROM posts
+            JOIN users ON  users.id=posts.user_id
+            LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
+            LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
+            LEFT JOIN likes      ON likes.post_id  = posts.id 
+            WHERE posts.user_id='$userId' 
+            GROUP BY posts.id
+            ORDER BY posts.created DESC  
+            ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
-
             /**
              * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
              */
@@ -277,23 +240,7 @@ session_start();
                     <footer >         
 
                         <small>
-                            <?php 
-                            $post_Id =$post['id'];
-                            $checkLike = "SELECT * FROM likes WHERE user_id= '" . $session_actuelle . "' AND post_id= '" . $post['id'] . "' ";
-                            $ok = $mysqli->query($checkLike);
-                            if ($ok -> num_rows == 0) {
-                                ?>
-                                <form action ="" method="post">
-                                    <input name="likes" type='submit' value="♥ <?php echo $post['like_number'] ?>">
-                                    <input name="postId" type='hidden' value=" <?php echo $post['id'] ?>">
-                                </form> 
-                                <?php
-                            } else { ?>
-                                <form action ="" method="post">
-                                    <input name="dislike" type='submit' value="♥ <?php echo $post['like_number'] ?>">
-                                    <input name="postIdD" type='hidden' value=" <?php echo $post['id'] ?>">
-                                </form> 
-                            <?php } ?>
+                            <?php include './likes.php'; ?>
                         </small>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>

@@ -45,14 +45,14 @@ session_start();
                     echo "</article>";
                     exit();
                 }*/
-
+            include './likesConnection.php';
             // Etape 2: Poser une question à la base de donnée et récupérer ses informations
             // cette requete vous est donnée, elle est complexe mais correcte, 
             // si vous ne la comprenez pas c'est normal, passez, on y reviendra
             $laQuestionEnSql = "
-                    SELECT posts.content,
+                    SELECT posts.user_id, posts.id, posts.content,
                     posts.created,
-                    users.alias as author_name,  
+                    users.alias as author_name, 
                     count(likes.id) as like_number, posts.user_id, 
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
@@ -61,8 +61,7 @@ session_start();
                     LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
                     LEFT JOIN likes      ON likes.post_id  = posts.id 
                     GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    LIMIT 5
+                    ORDER BY posts.created DESC
                     ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             // Vérification
@@ -98,7 +97,7 @@ session_start();
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>♥ <?php echo $post['like_number'] ?> </small>
+                        <?php include './likes.php';?>
                         <a href=""><?php echo $post['taglist'] ?></a>,
                     </footer>
                 </article>

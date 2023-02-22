@@ -55,11 +55,28 @@ session_start();
         </aside>
         <main>
             <?php
+            include './likesConnection.php';
             /**
              * Etape 3: récupérer tous les messages avec un mot clé donné
              */
+           /* $laQuestionEnSql = "
+                    SELECT posts.id, posts.user_id, posts.content,
+                    posts.created,
+                    users.alias as author_name,  
+                    count(likes.id) as like_number,  
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    FROM posts_tags as filter 
+                    JOIN posts ON posts.id=filter.post_id
+                    JOIN users ON users.id=posts.user_id
+                    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
+                    LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
+                    LEFT JOIN likes      ON likes.post_id  = posts.id 
+                    WHERE filter.tag_id = '$tagId' 
+                    GROUP BY posts.id
+                    ORDER BY posts.created DESC  
+                    "; */
             $laQuestionEnSql = "
-                    SELECT posts.user_id, posts.content,
+                    SELECT posts.id, posts.user_id, posts.content,
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -74,6 +91,7 @@ session_start();
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
                     ";
+
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
@@ -95,8 +113,8 @@ session_start();
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>♥ <?php echo $post['like_number'] ?></small>
-                        <a href="">#<?php echo $post['taglist'] ?></a>
+                        <?php include './likes.php'?> 
+                        <!-- <a href="">#<?php //echo $post['taglist'] ?></a> -->
                     </footer>
                 </article>
             <?php } ?>

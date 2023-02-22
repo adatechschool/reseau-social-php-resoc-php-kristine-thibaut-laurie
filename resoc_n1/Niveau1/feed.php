@@ -56,11 +56,12 @@ session_start();
         </aside>
         <main>
             <?php
+            include './likesConnection.php';
             /**
              * Etape 3: récupérer tous les messages des abonnements
              */
             $laQuestionEnSql = "
-                    SELECT posts.user_id, posts.content,
+                    SELECT posts.id, posts.user_id, posts.content,
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -96,7 +97,7 @@ session_start();
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <small>♥<?php echo $post['like_number'] ?></small>
+                        <?php include './likes.php' ?>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
