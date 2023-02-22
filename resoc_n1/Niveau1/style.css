@@ -2,6 +2,29 @@ body{
     background-color: black;
     font-family: 'Frank Ruhl Libre', serif;
 }
+select, 
+input{
+    font-family: 'Cormorant Garamond', serif;
+    
+}
+
+.btn{
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.btn:hover {
+    background-color: black;
+    color: #f3dd73;
+}
 
 a{text-decoration: none; color:black;}
 /*a:hover{text-decoration: underline;}*/
@@ -81,6 +104,7 @@ body>header #user:hover ul{
     flex:1;
     padding:1em;
     border-radius: 1em;
+
 
 }
 #wrapper aside img{
@@ -176,6 +200,13 @@ a {
     color: #f3dd73;
 
 }
+.welcomeMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.btn
 
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
 form dl dd{margin-left:10em;line-height: 1.5em;margin-bottom: 1em}
@@ -196,4 +227,11 @@ form dl dd textarea{width:40em;height: 15em;}
 #description {
     text-align: center;
     margin-top: 3em;
+    
+.messageBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
