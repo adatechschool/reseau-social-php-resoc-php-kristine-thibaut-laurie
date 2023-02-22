@@ -43,14 +43,11 @@ session_start();
             //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par le label et effacer la ligne ci-dessous
             //echo "<pre>" . print_r($tag, 1) . "</pre>";
             ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
-                <h3>Présentation</h3>
-                <p>Sur cette page vous trouverez les derniers messages comportant
-                    le mot-clé <?php echo $tag['label'] ?>
-                    (n° <?php echo $tagId ?>)
-                </p>
-
+                <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
+                <h3 id="presentation">Présentation</h3>
+                <p id="description">Sur cette page vous trouverez les derniers messages de
+                    tous les utilisatrices du site.</p>
             </section>
         </aside>
         <main>
