@@ -50,7 +50,7 @@ session_start();
             // cette requete vous est donnée, elle est complexe mais correcte, 
             // si vous ne la comprenez pas c'est normal, passez, on y reviendra
             $laQuestionEnSql = "
-                    SELECT posts.user_id, posts.id, posts.content,
+                    SELECT posts.photo_upload, posts.user_id, posts.id, posts.content,
                     posts.created,
                     users.alias as author_name, 
                     count(DISTINCT likes.id) as like_number, posts.user_id, 
@@ -94,7 +94,8 @@ session_start();
                     <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $post['author_name'] ?></a> </address>
 
                     <div>
-                        <p><?php echo $post['content'] ?></p>
+                        <p><?php echo $post['content'] ?></p> <br> <br>
+                        <img src="<?php echo $post['photo_upload'];?>" class="newsPhoto" alt="Portrait de l'utilisatrice" />
                     </div>
                     <footer>
                         <?php include './likes.php';?>

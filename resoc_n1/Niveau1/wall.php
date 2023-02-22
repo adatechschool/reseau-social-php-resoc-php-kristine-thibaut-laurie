@@ -105,7 +105,8 @@ session_start();
                                 . $authorId . ", "
                                 . "'" . $postContent . "', "
                                 . "NOW(), "
-                                . "NULL);";
+                                . "NULL,"
+                                . "'" . $postedPhoto . "')";
                             echo $lInstructionSql;
                             // Etape 5 : execution
                             $ok = $mysqli->query($lInstructionSql);

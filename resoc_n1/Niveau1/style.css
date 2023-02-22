@@ -160,6 +160,10 @@ pre{
     width: 10rem;
     border-radius: 50%;
 }
+.newsPhoto {
+    height: 20rem;
+    width: 10 rem;
+}
 
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
 form dl dd{margin-left:10em;line-height: 1.5em;margin-bottom: 1em}
