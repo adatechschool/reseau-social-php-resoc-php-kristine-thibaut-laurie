@@ -14,16 +14,7 @@ session_start();
 <body>
 <?php include './header.php'; ?>
     <div id="wrapper">
-        <aside>
-            <div id="world">
-            <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
-            </div>
-            <section>
-                <h3 id="presentation">Présentation</h3>
-                <p id="description">Sur cette page vous trouverez les derniers messages de
-                    tous les utilisatrices du site.</p>
-            </section>
-        </aside>
+        
         <main>
 
             <?php
@@ -88,15 +79,15 @@ session_start();
                 // 
                 // avec le ? > ci-dessous on sort du mode php et on écrit du html comme on veut... mais en restant dans la boucle
             ?>
-                <article>
+                <article class="gallery">
                     <h3>
                         <time><?php echo $post['created'] ?></time>
                     </h3>
                     <!-- Besoin de corriger la ligne 107-->
                     <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $post['author_name'] ?></a> </address>
-
-                    <div>
-                        <p><?php echo $post['content'] ?></p> <br> <br>
+                    
+                    <p><?php echo $post['content'] ?></p> <br> <br>
+                    <div class="divPhoto">
                         <img src="<?php echo $post['photo_upload'];?>" class="newsPhoto" alt="Portrait de l'utilisatrice" />
                     </div>
                     <footer>

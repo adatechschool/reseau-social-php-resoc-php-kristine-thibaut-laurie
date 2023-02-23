@@ -234,3 +234,13 @@ form dl dd textarea{width:40em;height: 15em;}
     align-items: center;
 
 }
+.gallery {
+    width: 55%;
+    margin-left: 16rem;
+}
+
+
+.divPhoto {
+    display: flex;
+    justify-content: center;
+}
