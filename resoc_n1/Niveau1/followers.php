@@ -13,7 +13,7 @@ session_start();
 </head>
 
 <body>
-<?php include './header.php'; ?>
+    <?php include './header.php'; ?>
     <div id="wrapper">
         <aside>
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
@@ -22,9 +22,9 @@ session_start();
                 <p>Sur cette page vous trouverez la liste des personnes qui
                     suivent les messages de l'utilisatrice
                     n° <?php echo intval($_GET['user_id']) ?></p>
-
             </section>
         </aside>
+        
         <main class='contacts'>
             <?php
             // Etape 1: récupérer l'id de l'utilisateur

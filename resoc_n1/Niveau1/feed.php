@@ -8,45 +8,34 @@ session_start();
 <head>
     <meta charset="utf-8">
     <title>ReSoC - Flux</title>
-    <meta name="author" content="Julien Falconnet">
+    <meta name="author" content="">
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-<?php include './header.php'; ?>
+    <?php include './header.php'; ?>
     <div id="wrapper">
         <?php
-        /**
-         * Cette page est TRES similaire à wall.php. 
-         * Vous avez sensiblement à y faire la meme chose.
-         * Il y a un seul point qui change c'est la requete sql.
-         */
-        /**
-         * Etape 1: Le mur concerne un utilisateur en particulier
-         */
+        // Etape 1: Le mur concerne un utilisateur en particulier
         $userId = intval($_GET['user_id']);
         ?>
+
         <?php
-        /**
-         * Etape 2: se connecter à la base de donnée
-         */
+        // se connecter à la base de donnée
         include './config.php';
         ?>
 
         <aside>
             <?php
-            /**
-             * Etape 3: récupérer le nom de l'utilisateur
-             */
+            // récupérer le nom de l'utilisateur
             $laQuestionEnSql = "SELECT * FROM `users` WHERE id= '$userId' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $user = $lesInformations->fetch_assoc();
-            //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
             //echo "<pre>" . print_r($user, 1) . "</pre>";
             ?>
             <section>
                 <div id="world">
-                <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
+                    <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world" />
                 </div>
                 <section>
                     <h3 id="presentation">Présentation</h3>
@@ -55,8 +44,10 @@ session_start();
                 </section>
             </section>
         </aside>
+
         <main>
             <?php
+            //checker likes et dislikes et inserer dans la base de données
             include './likesConnection.php';
             /**
              * Etape 3: récupérer tous les messages des abonnements
@@ -83,11 +74,6 @@ session_start();
             }
             while ($post = $lesInformations->fetch_assoc()) {
                 //echo "<pre>" . print_r($post, 1) . "</pre>";
-
-                /**
-                 * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 * A vous de retrouver comment faire la boucle while de parcours...
-                 */
             ?>
                 <article>
                     <h3>

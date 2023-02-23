@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,20 +14,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300&display=swap" rel="stylesheet">
 
-
-        <title>Document</title>
+    <title>Head</title>
 </head>
+
 <body>
-    
-    <header>
-        <img src="photo/vagabondLogo.png" alt="Logo de notre réseau social" class="logo"/>
+
+    <header class="header">
+        <img src="photo/vagabondLogo.png" alt="Logo de notre réseau social" class="logo" />
         <nav id="menu">
-            
-        <?php if (isset($_SESSION['connected_id'])) { ?>
-            <a href="news.php">Actualités</a>
-            <a href="wall.php?user_id=<?php echo $_SESSION['connected_id'] ?>" >Mur</a>
-            <a href="feed.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Flux</a>
-            <a href="tags.php?tag_id=1">Mots-clés</a>
+
+            <!-- Si l'utilisateur est connecté on intègre son id dans l'url sinon accès a la page de connexion-->
+            <?php if (isset($_SESSION['connected_id'])) { ?>
+                <a href="news.php">Actualités</a>
+                <a href="wall.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Mur</a>
+                <a href="feed.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Flux</a>
+                <a href="tags.php?tag_id=1">Mots-clés</a>
         </nav>
         <nav id="user">
             <a href="#">Profil</a>
@@ -39,12 +41,13 @@
                 <li><a href="logout.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Deconnexion</a></li>
                 <li><a href="usurpedpost.php?user_id=<?php echo $_SESSION['connected_id'] ?>">Apropriation de posts</a></li>
             </ul>
-            <?php } else { ?>
+        <?php } else { ?>
             <a href="login.php">Connexion</a>
         <?php
-        } ?>
+            } ?>
         </nav>
-    
+
     </header>
 </body>
+
 </html>
