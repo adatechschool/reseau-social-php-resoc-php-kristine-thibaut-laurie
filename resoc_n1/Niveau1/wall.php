@@ -49,7 +49,7 @@ session_start();
 
             <img src="<?php echo $user['photo'];?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
             <div class="welcomeMessage">
-                <h2>Binvenue <?php echo $user['alias'] ?></h2>
+                <h2>Bienvenue <?php echo $user['alias'] ?></h2>
             </div>
             <section>
                 <main>
