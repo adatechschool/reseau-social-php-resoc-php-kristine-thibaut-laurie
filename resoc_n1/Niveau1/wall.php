@@ -16,52 +16,34 @@ session_start();
     <?php include './header.php'; ?>
     <div id="wrapper">
         <?php
-        /**
-         * Etape 1: Le mur concerne un utilisateur en particulier
-         * La première étape est donc de trouver quel est l'id de l'utilisateur
-         * Celui ci est indiqué en parametre GET de la page sous la forme user_id=...
-         * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
-         * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
-         */
-        
         $userId = intval($_GET['user_id']);
         ?>
+
         <?php
-        /**
-         * Etape 2: se connecter à la base de donnée
-         */
         include './config.php';
         ?>
 
         <aside>
             <?php
-            /**
-             * Etape 3: récupérer le nom de l'utilisateur
-             */
-
             $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $user = $lesInformations->fetch_assoc();
-
-            //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
             //echo "<pre>" . print_r($user, 1) . "</pre>";
             ?>
 
             <img src="<?php echo $user['photo'];?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
+        
             <div class="welcomeMessage">
                 <h2>Bienvenue <?php echo $user['alias'] ?></h2>
             </div>
+
             <section>
                 <main>
                     <article>
                         <?php
-                        /**
-                         * BD
-                         */
                         $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
-                        /**
-                         * Récupération de la liste des auteurs
-                         */
+
+                        // Récupération de la liste des auteurs.
                         $listAuteurs = [];
                         $laQuestionEnSql = "SELECT * FROM users";
                         $lesInformations = $mysqli->query($laQuestionEnSql);
@@ -72,30 +54,18 @@ session_start();
                             }
                         }
 
-
-                        /**
-                         * TRAITEMENT DU FORMULAIRE
-                         */
-                        // Etape 1 : vérifier si on est en train d'afficher ou de traiter le formulaire
-                        // si on recoit un champs email rempli il y a une chance que ce soit un traitement
+                        // TRAITEMENT DU FORMULAIRE
                         $enCoursDeTraitement = isset($_POST['auteur']);
 
                         if ($enCoursDeTraitement) {
-                            // on ne fait ce qui suit que si un formulaire a été soumis.
-                            // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
-                            // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
+                            // On récupére ce qu'il y a dans le formulaire.
                             //echo "<pre>" . print_r($_POST, 1) . "</pre>";
-                            // et complétez le code ci dessous en remplaçant les ???
                             $authorId = $_POST['auteur'];
                             $postContent = $_POST['message'];
                             $postedPhoto = $_POST['postedPhoto'];
 
-
-                            //Etape 3 : Petite sécurité
-                            // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
                             $authorId = intval($mysqli->real_escape_string($authorId));
                             $postContent = $mysqli->real_escape_string($postContent);
-                            //Etape 4 : construction de la requete
                             $lInstructionSql = "INSERT INTO posts "
                                 . "(id, user_id, content, created, parent_id, photo_upload) "
                                 . "VALUES (NULL, "
@@ -105,7 +75,6 @@ session_start();
                                 . "NULL,"
                                 . "'" . $postedPhoto . "')";
                             echo $lInstructionSql;
-                            // Etape 5 : execution
                             $ok = $mysqli->query($lInstructionSql);
                             if (!$ok) {
                                 echo "Impossible d'ajouter le message: " . $mysqli->error;
@@ -114,6 +83,7 @@ session_start();
                             }
                         }
                         ?>
+
                         <form action="" method="post" class="messageBox" id="messageBox">
                             <dl>
                                 <dt display="hidden"><label for='auteur'>Auteur</label></dt>
@@ -130,48 +100,48 @@ session_start();
                             </dl>
                                 <input type='submit' class="btn"><br> <br>
                         </form>
+
                             <?php
                             // followers 
-                                
-                                    $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
-                                    $get_data_followers = $mysqli->query($select_data_followers);
-                                    $fetched_data_followers = $get_data_followers -> fetch_assoc();
-                                    //echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
+                            $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
+                            $get_data_followers = $mysqli->query($select_data_followers);
+                            $fetched_data_followers = $get_data_followers -> fetch_assoc();
+                            //echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
 
 
-                                    if ($userId == $session_actuelle) {
+                                if ($userId == $session_actuelle) {
                                         
-                                    } else if (!$fetched_data_followers) { ?>
+                                } else if (!$fetched_data_followers) { ?>
 
-                                        <form action ="" method="post">
-                                        <input name="followers" type='submit' value="S'abonner">
-                                        </form> 
+                                <form action ="" method="post">
+                                <input class="btn" name="followers" type='submit' value="S'abonner">
+                                </form> 
                                     
-                                    <?php
+                                <?php
 
-                                        $check_follow = isset($_POST["followers"]);
-                                        if ($check_follow ) {
-                                        $followed_user_id = $userId ;
-                                        //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                                        $sql_followers = "INSERT INTO followers "
-                                    . "(id, followed_user_id, following_user_id) "
-                                    . "VALUES (NULL, "
-                                    . $followed_user_id . ", "
-                                    . $session_actuelle . "); ";
-                                        $insert_followers = $mysqli->query($sql_followers);
+                                $check_follow = isset($_POST["followers"]);
+                                if ($check_follow ) {
+                                $followed_user_id = $userId ;
+                                //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                                $sql_followers = "INSERT INTO followers "
+                                . "(id, followed_user_id, following_user_id) "
+                                . "VALUES (NULL, "
+                                . $followed_user_id . ", "
+                                . $session_actuelle . "); ";
+                                $insert_followers = $mysqli->query($sql_followers);
                         
-                                        if (!$insert_followers) {
-                                            echo "Impossible d'ajouter le follower: " . $mysqli->error;
-                                        } else {
-                                            echo "Vous êtes abonné:";
-                                            header('Refresh:0');
-                                        }
+                                if (!$insert_followers) {
+                                    echo "Impossible d'ajouter le follower: " . $mysqli->error;
+                                    } else {
+                                        echo "Vous êtes abonné:";
+                                        header('Refresh:0');
+                                    }
                                         
                                     }
                                     } else if ($fetched_data_followers) { ?>
 
                                         <form action ="" method="post">
-                                            <input name="delete" type='submit' value="Se désabonner">
+                                            <input class="btn" name="delete" type='submit' value="Se désabonner">
                                             </form> 
 
                                     <?php } 
@@ -189,18 +159,17 @@ session_start();
                                                     header('Refresh:0');
                                                 } 
                                         }
-
                                     ?>
 
                     </article>
             </section>
         </aside>
+
         <main>
-             <?php
-             include './likesConnection.php';
-             /**
-             * Etape 3: récupérer tous les messages de l'utilisatrice
-             */ 
+            <?php
+            include './likesConnection.php';
+            //On récupére tous les messages de l'utilisatrice.
+
             $laQuestionEnSql = "
             SELECT posts.user_id, posts.content, posts.created, users.alias as author_name, posts.id,                    
             COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
@@ -213,17 +182,17 @@ session_start();
             GROUP BY posts.id
             ORDER BY posts.created DESC  
             ";
+
             $lesInformations = $mysqli->query($laQuestionEnSql);
+
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
-            /**
-             * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-             */
             while ($post = $lesInformations->fetch_assoc()) {
 
                 //echo "<pre>" . print_r($post, 1) . "</pre>";
             ?>
+
                 <article>
                     <h3>
                         <time datetime='2020-02-01 11:12:13'><?php echo $post['created'] ?></time>
@@ -242,9 +211,6 @@ session_start();
                     </footer>
                 </article>
                 <?php } ?> 
-           
-
-
         </main>
     </div>
 </body>

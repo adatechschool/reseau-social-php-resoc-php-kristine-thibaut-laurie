@@ -2,10 +2,15 @@ body{
     background-color: black;
     font-family: 'Frank Ruhl Libre', serif;
 }
+
 select, 
 input{
-    font-family: 'Cormorant Garamond', serif;
-    
+    font-family: 'Cormorant Garamond', serif;   
+}
+
+.selection {
+    font-weight: bold;
+    line-height: 1.5em;
 }
 
 .btn{

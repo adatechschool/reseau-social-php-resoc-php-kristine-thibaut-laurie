@@ -16,19 +16,13 @@ session_start();
 <?php include './header.php'; ?>
     <div id="wrapper">
         <?php
-        /**
-         * Cette page est similaire à wall.php ou feed.php 
-         * mais elle porte sur les mots-clés (tags)
-         */
-        /**
-         * Etape 1: Le mur concerne un mot-clé en particulier
-         */
+       
+        // On récupère le tag_id dans l'URL.
         $tagId = intval($_GET['tag_id']);
         ?>
+
         <?php
-        /**
-         * Etape 2: se connecter à la base de donnée
-         */
+        // On se connecte à la base de données.
         include './config.php';
         ?>
 
@@ -40,22 +34,21 @@ session_start();
             $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $tag = $lesInformations->fetch_assoc();
-            //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par le label et effacer la ligne ci-dessous
             //echo "<pre>" . print_r($tag, 1) . "</pre>";
             ?>
+
             <section>
                 <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
                 <h3 id="presentation">Présentation</h3>
-                <p id="description">Sur cette page vous trouverez les derniers messages de
-                    tous les utilisatrices du site.</p>
+                <p id="description">Sur cette page vous trouverez les derniers messages de tous les utilisatrices du site.</p>
             </section>
         </aside>
+
         <main>
             <?php
             include './likesConnection.php';
-            /**
-             * Etape 3: récupérer tous les messages avec un mot clé donné
-             */
+            
+            // Etape 3: récupérer tous les messages avec un mot clé donné.
             $laQuestionEnSql = "
                     SELECT posts.id, posts.user_id, posts.content,
                     posts.created,
@@ -73,26 +66,11 @@ session_start();
                     ORDER BY posts.created DESC  
                     "; 
 
-            /*$laQuestionEnSql = "
-                    SELECT posts.id, posts.user_id, posts.content,
-                    posts.created,
-                    users.alias as author_name,  
-                    count(likes.id) as like_number,  
-                    JOIN posts ON posts.id=filter.post_id
-                    JOIN users ON users.id=posts.user_id
-                    LEFT JOIN likes      ON likes.post_id  = posts.id  
-                    GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    ";*/
-
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
 
-            /**
-             * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-             */
             while ($post = $lesInformations->fetch_assoc()) {
 
                 //echo "<pre>" . print_r($post, 1) . "</pre>";
@@ -111,8 +89,6 @@ session_start();
                     </footer>
                 </article>
             <?php } ?>
-
-
         </main>
     </div>
 </body>

@@ -20,7 +20,7 @@
 <body>
 
     <header class="header">
-        <img src="photo/vagabondLogo.png" alt="Logo de notre réseau social" class="logo" />
+        <img src="./photo/vagabondLogo.png" alt="Logo de notre réseau social" class="logo" />
         <nav id="menu">
 
             <!-- Si l'utilisateur est connecté on intègre son id dans l'url sinon accès a la page de connexion-->

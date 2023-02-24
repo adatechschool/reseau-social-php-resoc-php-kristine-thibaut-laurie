@@ -2,31 +2,33 @@
 session_start();
 ?>
 <?php
-// TRAITEMENT DU FORMULAIRE
 
+// TRAITEMENT DU FORMULAIRE.
 $enCoursDeTraitement = isset($_POST['email']);
 
-// recuperer les données du formulaire
+// On recupere les données du formulaire.
 if ($enCoursDeTraitement) {
     //echo "<pre>" . print_r($_POST, 1) . "</pre>";
     $emailAVerifier = $_POST['email'];
     $passwdAVerifier = $_POST['motpasse'];
 
-    //Etape 3 : Ouvrir une connexion avec la base de donnée.
+    //On ouvre une connexion avec la base de donnée.
     $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
-    //Etape 4 : Petite sécurité
-    // pour éviter les injection sql avec les caractères speciaux 
+
+    // Pour éviter les injection sql avec les caractères speciaux.
     $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
     $passwdAVerifier = $mysqli->real_escape_string($passwdAVerifier);
-    // on crypte le mot de passe pour éviter d'exposer notre utilisatrice en cas d'intrusion dans nos systèmes
+
+    // On crypte le mot de passe pour éviter d'exposer notre utilisatrice en cas d'intrusion dans nos systèmes.
     $passwdAVerifier = md5($passwdAVerifier);
-    // NB: n'est pas recommandée pour une vraies sécurité
-    //Etape 5 : construction de la requete
+
+    // Construction de la requete.
     $lInstructionSql = "SELECT *
                                                 FROM users 
                                                 WHERE 
                                                 email = '" . $emailAVerifier . "'";
-    // Etape 6: Vérification de l'utilisateur
+
+    // Vérification de l'utilisateur.
     $res = $mysqli->query($lInstructionSql);
 
     global $user;
@@ -35,7 +37,7 @@ if ($enCoursDeTraitement) {
         echo "La connexion a échouée. ";
     } else {
         echo "Votre connexion est un succès : " . $user['alias'] . ".";
-        // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
+        // Se souvenir que l'utilisateur s'est connecté pour la suite.
         $_SESSION['connected_id'] = $user['id'];
         header("Location: wall.php?user_id=" . $_SESSION['connected_id']);
     }
@@ -57,7 +59,7 @@ if ($enCoursDeTraitement) {
     <div id="wrapper">
         <aside>
             <h2>Présentation</h2>
-            <p>Bienvenu sur notre réseau social.</p>
+            <p>Bienvenue sur notre réseau social.</p>
         </aside>
         <main>
             <article>
@@ -76,7 +78,6 @@ if ($enCoursDeTraitement) {
                     Pas de compte?
                     <a href='registration.php'>Inscrivez-vous.</a>
                 </p>
-
             </article>
         </main>
     </div>

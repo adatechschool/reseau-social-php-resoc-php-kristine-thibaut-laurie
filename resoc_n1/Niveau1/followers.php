@@ -16,7 +16,7 @@ session_start();
     <?php include './header.php'; ?>
     <div id="wrapper">
         <aside>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <img src="photo/user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez la liste des personnes qui
@@ -45,7 +45,7 @@ session_start();
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
                 <article>
-                    <img src="user.jpg" alt="blason" />
+                    <img src="photo/user.jpg" alt="blason" />
                     <h3><a href="wall.php?user_id=<?php echo $user['id'] ?>"><?php echo $user['alias'] ?></a> </h3>
                     <p><?php echo $user['id'] ?></p>
                 </article>
