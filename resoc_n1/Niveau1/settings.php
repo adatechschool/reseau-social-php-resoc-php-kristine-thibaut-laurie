@@ -13,7 +13,7 @@ session_start();
 </head>
 
 <body>
-<?php include './header.php'; ?>
+    <?php include './header.php'; ?>
     <div id="wrapper" class='profile'>
 
 

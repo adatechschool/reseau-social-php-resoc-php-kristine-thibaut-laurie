@@ -31,8 +31,8 @@ session_start();
             //echo "<pre>" . print_r($user, 1) . "</pre>";
             ?>
 
-            <img src="<?php echo $user['photo'];?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
-        
+            <img src="<?php echo $user['photo']; ?>" class="userPhoto" alt="Portrait de l'utilisatrice" />
+
             <div class="welcomeMessage">
                 <h2>Bienvenue <?php echo $user['alias'] ?></h2>
             </div>
@@ -98,68 +98,66 @@ session_start();
                                 <dt><label for='postedPhoto'>photo</label></dt>
                                 <dd><textarea name='postedPhoto'></textarea></dd>
                             </dl>
-                                <input type='submit' class="btn"><br> <br>
+                            <input type='submit' class="btn"><br> <br>
                         </form>
 
-                            <?php
-                            // followers 
-                            $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
-                            $get_data_followers = $mysqli->query($select_data_followers);
-                            $fetched_data_followers = $get_data_followers -> fetch_assoc();
-                            //echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
+                        <?php
+                        // followers 
+                        $select_data_followers = "SELECT * FROM followers WHERE followed_user_id = '$userId' AND following_user_id = '$session_actuelle '";
+                        $get_data_followers = $mysqli->query($select_data_followers);
+                        $fetched_data_followers = $get_data_followers->fetch_assoc();
+                        //echo "<pre>" . print_r($fetched_data_followers, 1) . "<pre>";
 
 
-                                if ($userId == $session_actuelle) {
-                                        
-                                } else if (!$fetched_data_followers) { ?>
+                        if ($userId == $session_actuelle) {
+                        } else if (!$fetched_data_followers) { ?>
 
-                                <form action ="" method="post">
+                            <form action="" method="post">
                                 <input class="btn" name="followers" type='submit' value="S'abonner">
-                                </form> 
-                                    
-                                <?php
+                            </form>
 
-                                $check_follow = isset($_POST["followers"]);
-                                if ($check_follow ) {
-                                $followed_user_id = $userId ;
+                            <?php
+
+                            $check_follow = isset($_POST["followers"]);
+                            if ($check_follow) {
+                                $followed_user_id = $userId;
                                 //echo "<pre>" . print_r($followed_user_id) . "<pre>";
                                 $sql_followers = "INSERT INTO followers "
-                                . "(id, followed_user_id, following_user_id) "
-                                . "VALUES (NULL, "
-                                . $followed_user_id . ", "
-                                . $session_actuelle . "); ";
+                                    . "(id, followed_user_id, following_user_id) "
+                                    . "VALUES (NULL, "
+                                    . $followed_user_id . ", "
+                                    . $session_actuelle . "); ";
                                 $insert_followers = $mysqli->query($sql_followers);
-                        
+
                                 if (!$insert_followers) {
                                     echo "Impossible d'ajouter le follower: " . $mysqli->error;
-                                    } else {
-                                        echo "Vous êtes abonné:";
-                                        header('Refresh:0');
-                                    }
-                                        
-                                    }
-                                    } else if ($fetched_data_followers) { ?>
+                                } else {
+                                    echo "Vous êtes abonné:";
+                                    header('Refresh:0');
+                                }
+                            }
+                        } else if ($fetched_data_followers) { ?>
 
-                                        <form action ="" method="post">
-                                            <input class="btn" name="delete" type='submit' value="Se désabonner">
-                                            </form> 
+                            <form action="" method="post">
+                                <input class="btn" name="delete" type='submit' value="Se désabonner">
+                            </form>
 
-                                    <?php } 
-                                        $check_for_delete = isset($_POST["delete"]);
-                                        if ($check_for_delete ) {
-                                            $followed_user_id = $userId ;
-                                            //echo "<pre>" . print_r($followed_user_id) . "<pre>";
-                                            $sql_followers_delete = " DELETE FROM followers WHERE followed_user_id = '$followed_user_id' AND following_user_id = '$session_actuelle'";
-                                
-                                            $delete_followers = $mysqli->query($sql_followers_delete);
-                                                if (!$delete_followers) {
-                                                    echo "Impossible de se désabonner du follower: " . $mysqli->error;
-                                                } else {
-                                                    echo "Vous êtes désabonné:";
-                                                    header('Refresh:0');
-                                                } 
-                                        }
-                                    ?>
+                        <?php }
+                        $check_for_delete = isset($_POST["delete"]);
+                        if ($check_for_delete) {
+                            $followed_user_id = $userId;
+                            //echo "<pre>" . print_r($followed_user_id) . "<pre>";
+                            $sql_followers_delete = " DELETE FROM followers WHERE followed_user_id = '$followed_user_id' AND following_user_id = '$session_actuelle'";
+
+                            $delete_followers = $mysqli->query($sql_followers_delete);
+                            if (!$delete_followers) {
+                                echo "Impossible de se désabonner du follower: " . $mysqli->error;
+                            } else {
+                                echo "Vous êtes désabonné:";
+                                header('Refresh:0');
+                            }
+                        }
+                        ?>
 
                     </article>
             </section>
@@ -201,8 +199,8 @@ session_start();
                     <div>
                         <p><?php echo $post['content'] ?></p>
                     </div>
-            
-                    <footer >         
+
+                    <footer>
 
                         <small>
                             <?php include './likes.php'; ?>
@@ -210,7 +208,7 @@ session_start();
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>
-                <?php } ?> 
+            <?php } ?>
         </main>
     </div>
 </body>

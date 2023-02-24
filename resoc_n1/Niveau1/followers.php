@@ -24,7 +24,7 @@ session_start();
                     n° <?php echo intval($_GET['user_id']) ?></p>
             </section>
         </aside>
-        
+
         <main class='contacts'>
             <?php
             // Etape 1: récupérer l'id de l'utilisateur

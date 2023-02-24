@@ -13,10 +13,10 @@ session_start();
 </head>
 
 <body>
-<?php include './header.php'; ?>
+    <?php include './header.php'; ?>
     <div id="wrapper">
         <?php
-       
+
         // On récupère le tag_id dans l'URL.
         $tagId = intval($_GET['tag_id']);
         ?>
@@ -38,7 +38,7 @@ session_start();
             ?>
 
             <section>
-                <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world"/>
+                <img src="https://media.giphy.com/media/YkXNjAkG7CfEVx3gcy/giphy.gif" alt="Portrait de l'utilisatrice" id="world" />
                 <h3 id="presentation">Présentation</h3>
                 <p id="description">Sur cette page vous trouverez les derniers messages de tous les utilisatrices du site.</p>
             </section>
@@ -47,7 +47,7 @@ session_start();
         <main>
             <?php
             include './likesConnection.php';
-            
+
             // Etape 3: récupérer tous les messages avec un mot clé donné.
             $laQuestionEnSql = "
                     SELECT posts.id, posts.user_id, posts.content,
@@ -64,7 +64,7 @@ session_start();
                     WHERE filter.tag_id = '$tagId' 
                     GROUP BY posts.id
                     ORDER BY posts.created DESC  
-                    "; 
+                    ";
 
             $lesInformations = $mysqli->query($laQuestionEnSql);
             if (!$lesInformations) {
@@ -84,7 +84,7 @@ session_start();
                         <p><?php echo $post['content'] ?></p>
                     </div>
                     <footer>
-                        <?php include './likes.php'?> 
+                        <?php include './likes.php' ?>
                         <a href="">#<?php echo $post['taglist'] ?></a>
                     </footer>
                 </article>

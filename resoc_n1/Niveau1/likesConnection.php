@@ -35,5 +35,3 @@ if ($check_dislike) {
         header('Refresh:0');
     }
 }
-
-?> 

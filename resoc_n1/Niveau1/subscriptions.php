@@ -13,7 +13,7 @@ session_start();
 </head>
 
 <body>
-<?php include './header.php'; ?>
+    <?php include './header.php'; ?>
     <div id="wrapper">
         <aside>
             <img src="photo/user.jpg" alt="Portrait de l'utilisatrice" />
@@ -48,7 +48,7 @@ session_start();
             <?php
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
-                <article> 
+                <article>
                     <img src="photo/user.jpg" alt="blason" />
                     <h3><a href="wall.php?user_id=<?php echo $user['id'] ?>"><?php echo $user['alias'] ?></a> </h3>
                     <p> <?php echo $user['id'] ?> </p>
